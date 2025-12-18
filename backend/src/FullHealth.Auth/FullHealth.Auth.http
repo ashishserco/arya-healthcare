@@ -1,0 +1,6 @@
+@FullHealth.Auth_HostAddress = http://localhost:5188
+
+GET {{FullHealth.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FqhtFX+cghM=",
+  "success": true,
+  "projectFilePath": "D:\\arya-healthcare\\backend\\src\\FullHealth.Appointment\\FullHealth.Appointment.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.11\\microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
