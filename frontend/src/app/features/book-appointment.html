@@ -1,0 +1,39 @@
+<div class="booking-container">
+    <div class="booking-card">
+        <h2>Book Appointment</h2>
+        <div class="doctor-summary">
+            <p><strong>Doctor:</strong> {{ doctorName }}</p>
+            <p><strong>Specialty:</strong> {{ specialty }}</p>
+        </div>
+
+        <form (ngSubmit)="confirmBooking()" #bookingForm="ngForm">
+            <div class="form-group">
+                <label>Select Date</label>
+                <input type="date" [(ngModel)]="selectedDate" name="date" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Select Time Slot</label>
+                <div class="slots-grid">
+                    <button type="button" *ngFor="let slot of slots" [class.active]="selectedSlot === slot"
+                        (click)="selectedSlot = slot" class="slot-btn">{{ slot }}</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Patient Name</label>
+                <input type="text" [(ngModel)]="patientName" name="patientName" placeholder="Enter patient name"
+                    required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Reason for Visit</label>
+                <textarea [(ngModel)]="reason" name="reason" placeholder="Briefly describe your symptoms" rows="3"
+                    class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary full-width"
+                [disabled]="!bookingForm.form.valid || !selectedSlot">Confirm Booking</button>
+        </form>
+    </div>
+</div>

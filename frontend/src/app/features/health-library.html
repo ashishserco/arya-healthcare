@@ -1,0 +1,44 @@
+<div class="library-page">
+    <div class="container">
+        <header class="library-header">
+            <h1>Health Library</h1>
+            <p>Trusted information to help you manage your health and wellness.</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-bar-wrapper">
+            <input type="text" class="search-input" placeholder="Search for conditions, treatments, or topics...">
+            <button class="btn btn-primary">Search</button>
+        </div>
+
+        <!-- Categories -->
+        <section class="categories-section">
+            <h2>Browse by Topic</h2>
+            <div class="category-pills">
+                @for (cat of categories; track cat) {
+                <button class="category-pill">{{ cat }}</button>
+                }
+            </div>
+        </section>
+
+        <!-- Featured Articles -->
+        <section class="featured-section">
+            <h2>Featured Articles</h2>
+            <div class="article-grid">
+                @for (article of featuredArticles; track article.id) {
+                <article class="article-card">
+                    <div class="article-content">
+                        <span class="article-category">{{ article.category }}</span>
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.excerpt }}</p>
+                        <div class="article-meta">
+                            <span>{{ article.readTime }}</span>
+                            <button class="btn-link">Read More →</button>
+                        </div>
+                    </div>
+                </article>
+                }
+            </div>
+        </section>
+    </div>
+</div>

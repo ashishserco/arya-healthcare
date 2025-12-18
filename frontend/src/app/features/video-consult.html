@@ -1,0 +1,53 @@
+<div class="video-consult-container">
+
+    <!-- Step 1: Specialty Selection -->
+    <div class="selection-screen" *ngIf="step === 'select'">
+        <header class="page-header">
+            <h1>Instant Video Consultation</h1>
+            <p>Connect with a verified specialist in minutes.</p>
+        </header>
+
+        <div class="specialty-grid">
+            <div class="specialty-card" *ngFor="let spec of specialties" (click)="startConsult(spec.name)">
+                <div class="icon">{{ spec.icon }}</div>
+                <h3>{{ spec.name }}</h3>
+                <div class="wait-time">
+                    <span class="dot"></span> Available in {{ spec.wait }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Waiting Room -->
+    <div class="waiting-room" *ngIf="step === 'waiting'">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <h2>Connecting you to a {{ selectedSpecialty }}...</h2>
+            <p>Please ensure your camera and microphone are allowed.</p>
+        </div>
+    </div>
+
+    <!-- Step 3: Active Call (Mock) -->
+    <div class="active-call" *ngIf="step === 'call'">
+        <div class="video-grid">
+            <div class="main-video">
+                <!-- Mock Doctor Video Feed -->
+                <div class="doctor-placeholder">
+                    <div class="doctor-avatar">👨‍⚕️</div>
+                    <span class="doctor-name">Dr. A. Sharma ({{ selectedSpecialty }})</span>
+                </div>
+            </div>
+            <div class="self-video">
+                <!-- Mock Self Video Feed -->
+                <div class="self-placeholder">You</div>
+            </div>
+        </div>
+
+        <div class="call-controls">
+            <button class="control-btn mic"><span class="icon">🎤</span></button>
+            <button class="control-btn video"><span class="icon">📹</span></button>
+            <button class="control-btn end-call" (click)="endCall()">End Call</button>
+        </div>
+    </div>
+
+</div>

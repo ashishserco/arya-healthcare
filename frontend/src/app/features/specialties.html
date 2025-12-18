@@ -1,0 +1,20 @@
+<div class="specialties-container">
+    <div class="page-header text-center">
+        <h1>Centres of <span class="highlight">Excellence</span></h1>
+        <p>Providing specialized care across 30+ medical disciplines.</p>
+    </div>
+
+    <div class="dept-grid">
+        <a [routerLink]="['/centre', dept.id]" class="dept-card" *ngFor="let dept of departments">
+            <div class="dept-img">
+                <img [src]="dept.image" [alt]="dept.name">
+                <div class="icon-overlay">{{ dept.icon }}</div>
+            </div>
+            <div class="dept-content">
+                <h3>{{ dept.name }}</h3>
+                <p>{{ dept.desc }}</p>
+                <span class="link-text">Explore Speciality →</span>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="signup-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Create your account</h1>
+            <p>Join thousands of patients managing their health with Arya.</p>
+        </div>
+
+        <div class="user-type-toggle">
+            <button [class.active]="userType === 'patient'" (click)="userType = 'patient'">I'm a Patient</button>
+            <button [class.active]="userType === 'provider'" (click)="userType = 'provider'">I'm a Provider</button>
+        </div>
+
+        <form class="auth-form">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="you@example.com" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" class="form-control">
+            </div>
+
+            <div class="form-group" *ngIf="userType === 'patient'">
+                <label>Date of Birth</label>
+                <input type="date" class="form-control">
+            </div>
+
+            <div class="form-group" *ngIf="userType === 'provider'">
+                <label>NPI Number</label>
+                <input type="text" placeholder="1234567890" class="form-control">
+            </div>
+
+            <button class="btn btn-primary full-width">Sign Up</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="#">Log in</a></p>
+        </div>
+    </div>
+</div>

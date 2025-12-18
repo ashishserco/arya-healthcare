@@ -1,0 +1,74 @@
+<div class="checker-page">
+    <div class="container checker-container">
+        <header class="checker-header">
+            <span class="badge" *ngIf="!result">AI Symptom Triage</span>
+            <h1>Symptom Checker</h1>
+        </header>
+
+        <div class="wizard-box">
+            <!-- Step 1 -->
+            <div *ngIf="step === 1" class="step-content">
+                <h2>What seems to be the problem?</h2>
+                <div class="options-grid">
+                    <button (click)="nextStep('Headache')" class="option-btn">Headache</button>
+                    <button (click)="nextStep('Stomach Pain')" class="option-btn">Stomach Pain</button>
+                    <button (click)="nextStep('Fever')" class="option-btn">Fever</button>
+                    <button (click)="nextStep('Cough')" class="option-btn">Cough / Cold</button>
+                    <button (click)="nextStep('Other')" class="option-btn">Other</button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div *ngIf="step === 2" class="step-content">
+                <h2>How long have you felt this way?</h2>
+                <div class="options-grid">
+                    <button (click)="nextStep('Less than 24 hours')" class="option-btn">Less than 24 hours</button>
+                    <button (click)="nextStep('1-3 days')" class="option-btn">1-3 days</button>
+                    <button (click)="nextStep('More than a week')" class="option-btn">More than a week</button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div *ngIf="step === 3" class="step-content">
+                <h2>How severe is the pain/discomfort?</h2>
+                <div class="options-grid">
+                    <button (click)="nextStep('Low')" class="option-btn">Low (Annoying)</button>
+                    <button (click)="nextStep('Medium')" class="option-btn">Medium (Distracting)</button>
+                    <button (click)="nextStep('High')" class="option-btn">High (Unbearable)</button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div *ngIf="result" class="result-content">
+                <div class="result-icon" [ngClass]="severity">
+                    @if (severity === 'high') { 🚨 }
+                    @else if (severity === 'medium') { 🩺 }
+                    @else { 🏠 }
+                </div>
+                <h2>Recommendation</h2>
+                <p class="result-text">{{ result }}</p>
+
+                <div class="result-actions">
+                    @if (severity === 'high' || severity === 'medium') {
+                    <button class="btn btn-primary" routerLink="/find-doc">Find a Doctor Now</button>
+                    }
+                    @else {
+                    <button class="btn btn-primary" routerLink="/library">Read Care Articles</button>
+                    }
+                    <button class="btn btn-outline" (click)="restart()">Check Another Symptom</button>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-bar" *ngIf="!result">
+                <div class="fill" [style.width.%]="(step / 3) * 100"></div>
+            </div>
+        </div>
+
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> This tool is for informational purposes only and does not constitute medical
+            advice.
+            If you are having a medical emergency, call 911 immediately.
+        </p>
+    </div>
+</div>

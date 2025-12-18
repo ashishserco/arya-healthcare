@@ -1,0 +1,61 @@
+<div class="specialty-detail">
+    <!-- Hero Banner -->
+    <div class="sp-hero" [style.backgroundImage]="'url(' + data.image + ')'">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <span class="badge">Centre of Excellence</span>
+            <h1>{{ data.name }}</h1>
+            <p class="subtitle">{{ data.subtitle }}</p>
+            <div class="actions">
+                <button class="btn btn-primary lg">Book Appointment</button>
+                <button class="btn btn-outline lg text-white">Treatment Cost</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container layout-grid">
+        <main class="main-content">
+            <section class="overview section">
+                <h2>Overview</h2>
+                <p>{{ data.desc }}</p>
+            </section>
+
+            <section class="procedures section">
+                <h2>Key Procedures</h2>
+                <ul class="procedure-list">
+                    <li *ngFor="let proc of data.procedures">
+                        <span class="check">✓</span> {{ proc }}
+                    </li>
+                </ul>
+            </section>
+
+            <section class="doctors section">
+                <h2>Our Specialists</h2>
+                <div class="doc-list">
+                    <div class="doc-card-sm" *ngFor="let doc of data.doctors">
+                        <img [src]="doc.img" class="doc-img">
+                        <div class="doc-info">
+                            <h4>{{ doc.name }}</h4>
+                            <span class="qual">{{ doc.qual }}</span>
+                            <span class="exp">{{ doc.exp }} Experience</span>
+                            <button class="btn-sm btn-outline">View Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="enquiry-card">
+                <h3>Need Guidance?</h3>
+                <p>Fill the form to get a call back from our care team.</p>
+                <form>
+                    <input type="text" placeholder="Name" class="form-control">
+                    <input type="tel" placeholder="Phone Number" class="form-control">
+                    <textarea placeholder="Query" class="form-control"></textarea>
+                    <button class="btn btn-primary full-width">Submit</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="app-layout">
+    <app-chat-widget></app-chat-widget>
+    <!-- Top Bar (Emergency) -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="emergency-contact">
+                <span>🚑 Emergency: <strong>1066</strong></span>
+                <span class="divider">|</span>
+                <span>🏥 Ambulance: <strong>1050</strong></span>
+                <span class="divider">|</span>
+                <span>📞 General Enquiry: <strong>+91 12345 67890</strong></span>
+            </div>
+            <div class="top-actions">
+                <a routerLink="/diagnostics">Book Health Check</a>
+                <a routerLink="/international-patients">International Patients</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar (Global) -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a routerLink="/" class="brand">Arya<span class="brand-highlight">Health</span></a>
+            <div class="nav-links">
+                <a routerLink="/find-doc">Find Care</a>
+                <a routerLink="/video-consult" class="nav-link">Video Consult</a>
+                <a routerLink="/centres-of-excellence" class="nav-link badge-link">Centres of Excellence</a>
+                <a routerLink="/pharmacy" class="nav-link">Pharmacy</a>
+                <a routerLink="/diagnostics">Lab Tests</a>
+                <a routerLink="/dashboard" class="btn btn-outline small">Log In</a>
+                <a routerLink="/signup" class="btn btn-primary small">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Route -->
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer (Massive) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1 -->
+                <div class="footer-col">
+                    <h3>Medical Professionals</h3>
+                    <ul>
+                        <li><a href="#">AskAryaExpert</a></li>
+                        <li><a href="#">Clinical Trials</a></li>
+                        <li><a href="#">Alumni Association</a></li>
+                        <li><a href="#">Refer a Patient</a></li>
+                    </ul>
+                    <h3>Researchers</h3>
+                    <ul>
+                        <li><a href="#">Research Faculty</a></li>
+                        <li><a href="#">Laboratories</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="footer-col">
+                    <h3>Businesses</h3>
+                    <ul>
+                        <li><a href="#">Executive Health Program</a></li>
+                        <li><a href="#">International Business Collaborations</a></li>
+                        <li><a href="#">Facilities & Real Estate</a></li>
+                        <li><a href="#">Supplier Information</a></li>
+                    </ul>
+                    <h3>Students</h3>
+                    <ul>
+                        <li><a href="#">Admissions Requirements</a></li>
+                        <li><a href="#">Degree Programs</a></li>
+                        <li><a href="#">Student & Faculty Portal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="footer-col">
+                    <h3>International Patients</h3>
+                    <ul>
+                        <li><a href="#">Appointments</a></li>
+                        <li><a href="#">Financial Services</a></li>
+                        <li><a href="#">Appointment Services Offices</a></li>
+                    </ul>
+                    <h3>Charitable Care & Financial Assistance</h3>
+                    <ul>
+                        <li><a href="#">Community Health Needs Assessment</a></li>
+                        <li><a href="#">Financial Assistance Documents – Arizona</a></li>
+                        <li><a href="#">Financial Assistance Documents – Florida</a></li>
+                        <li><a href="#">Financial Assistance Documents – Minnesota</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div class="footer-col">
+                    <h3>Legal & Policies</h3>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Notice of Privacy Practices</a></li>
+                        <li><a href="#">Notice of Nondiscrimination</a></li>
+                        <li><a href="#">Digital Accessibility Statement</a></li>
+                        <li><a href="#">Advertising & Sponsorship Policy</a></li>
+                        <li><a href="#">Site Map</a></li>
+                        <li><a href="#">Manage Cookies</a></li>
+                        <li><a href="#">Price Transparency</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#">Follow Arya Health:</a>
+                    <a href="#">X</a>
+                    <a href="#">YouTube</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                </div>
+                <div class="app-links">
+                    <a href="#">Get the App</a>
+                    <a href="#">Android App on Google Play</a>
+                    <a href="#">Apple Download on the App Store</a>
+                </div>
+                <p class="copyright">
+                    © 1998-2025 Arya Foundation for Medical Education and Research (AFMER). All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Quick Actions (Fortis Style) -->
+    <div class="floating-widget"
+        style="position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 0;">
+        <button class="float-btn"
+            style="writing-mode: vertical-rl; text-orientation: mixed; padding: 1.5rem 0.75rem; background: var(--secondary-color); color: white; border: none; font-weight: 600; cursor: pointer; border-radius: 8px 0 0 0; box-shadow: -2px 2px 4px rgba(0,0,0,0.1);">
+            Book Appointment
+        </button>
+        <button class="float-btn"
+            style="writing-mode: vertical-rl; text-orientation: mixed; padding: 1.5rem 0.75rem; background: var(--primary-dark); color: white; border: none; font-weight: 600; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.2);">
+            Enquire Now
+        </button>
+        <button class="float-btn"
+            style="writing-mode: vertical-rl; text-orientation: mixed; padding: 1.5rem 0.75rem; background: var(--primary-dark); color: white; border: none; font-weight: 600; cursor: pointer; border-radius: 0 0 0 8px;">
+            Emergency
+        </button>
+    </div>
+</div>

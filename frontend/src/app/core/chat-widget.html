@@ -1,0 +1,32 @@
+<div class="chat-widget">
+    <!-- Chat Window -->
+    <div class="chat-window" *ngIf="isOpen">
+        <div class="chat-header">
+            <div class="ai-avatar">🤖</div>
+            <div class="header-info">
+                <h3>Arya AI</h3>
+                <span>Online</span>
+            </div>
+            <button class="close-btn" (click)="toggleChat()">×</button>
+        </div>
+
+        <div class="chat-messages">
+            @for (msg of messages; track msg) {
+            <div class="message" [class.user]="msg.sender === 'user'" [class.ai]="msg.sender === 'ai'">
+                {{ msg.text }}
+            </div>
+            }
+        </div>
+
+        <div class="chat-input local-styles">
+            <input type="text" [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type a message...">
+            <button (click)="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button class="chat-toggle-btn" (click)="toggleChat()" *ngIf="!isOpen">
+        <span class="icon">💬</span>
+        <span class="label">Chat with AI</span>
+    </button>
+</div>

@@ -1,0 +1,162 @@
+.pharmacy-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.pharmacy-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.brand-highlight {
+    color: var(--secondary-color);
+}
+
+/* Green for Meds */
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.cart-icon {
+    font-size: 1.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon span {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+}
+
+/* Categories */
+.category-grid {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.category-card .icon {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: all 0.2s;
+}
+
+.category-card:hover .icon {
+    border-color: var(--secondary-color);
+    background: #f0fdf4;
+    transform: translateY(-4px);
+}
+
+/* Products */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: #ef4444;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.product-details {
+    padding: 1rem;
+}
+
+.product-details h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.product-details .category {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.btn-add {
+    background: var(--text-main);
+    /* Using Dark text color for contrast/button like Apollo/Netmeds might do, or just Primary */
+    background: white;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    padding: 0.25rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background: var(--secondary-color);
+    color: white;
+}

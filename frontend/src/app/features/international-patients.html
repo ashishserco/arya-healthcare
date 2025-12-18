@@ -1,0 +1,108 @@
+<div class="international-container">
+    <!-- Hero Section -->
+    <div class="intl-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>World-Class Care for <br><span class="highlight">Global Citizens</span></h1>
+            <p>Treating patients from over 50+ countries with advanced medical technology and compassionate care.</p>
+            <div class="hero-btns">
+                <button class="btn btn-primary lg">Get a Free Cost Estimate</button>
+                <button class="btn btn-outline lg text-white">Download Brochure</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+        <div class="container strip-content">
+            <div class="stat">
+                <h3>50+</h3>
+                <p>Countries Served</p>
+            </div>
+            <div class="stat">
+                <h3>10k+</h3>
+                <p>International Patients</p>
+            </div>
+            <div class="stat">
+                <h3>24/7</h3>
+                <p>Patient Support</p>
+            </div>
+            <div class="stat">
+                <h3>JCI</h3>
+                <p>Accredited Hospitals</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Grid -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Comprehensive International Services</h2>
+                <p>We take care of everything so you can focus on healing.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card" *ngFor="let s of services">
+                    <div class="icon">{{ s.icon }}</div>
+                    <h3>{{ s.title }}</h3>
+                    <p>{{ s.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Steps -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Your Journey to Recovery</h2>
+                <p>A simple 5-step process for your medical travel.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card" *ngFor="let step of steps">
+                    <div class="step-num">{{ step.num }}</div>
+                    <h3>{{ step.title }}</h3>
+                    <p>{{ step.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section bg-blue">
+        <div class="container">
+            <div class="section-header text-center text-white">
+                <h2>Patient Stories</h2>
+                <p style="color: rgba(255,255,255,0.8);">Read about the experiences of patients from around the world.
+                </p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="review-card" *ngFor="let t of testimonials">
+                    <p class="quote">"{{ t.quote }}"</p>
+                    <div class="reviewer">
+                        <img [src]="t.image" class="avatar">
+                        <div>
+                            <h4>{{ t.name }}</h4>
+                            <span>{{ t.country }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to plan your treatment?</h2>
+            <p>Our dedicated team is here to assist you 24/7.</p>
+            <div class="cta-actions">
+                <button class="btn btn-primary">WhatsApp Us</button>
+                <button class="btn btn-outline">Request Call Back</button>
+            </div>
+        </div>
+    </section>
+</div>

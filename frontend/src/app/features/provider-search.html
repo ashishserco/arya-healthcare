@@ -1,0 +1,57 @@
+<div class="provider-search-container">
+    <div class="search-header">
+        <input type="text" class="search-input" placeholder="Search doctors, specialities, symptoms...">
+        <select class="filter-select">
+            <option value="">Specialty</option>
+            <option value="cardiology">Cardiology</option>
+            <option value="dermatology">Dermatology</option>
+        </select>
+        <select class="filter-select">
+            <option value="">Availability</option>
+            <option value="today">Today</option>
+            <option value="tomorrow">Tomorrow</option>
+        </select>
+        <button class="btn btn-primary">Search</button>
+    </div>
+
+    <div class="doctor-grid">
+        <div class="doctor-card" *ngFor="let doc of doctors">
+            <div class="card-header">
+                <div class="insurance-badge" *ngIf="doc.insuranceAccepted">
+                    <span>🛡️</span> Cashless Mediclaim
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="doctor-avatar-wrapper">
+                    <img [src]="doc.image" [alt]="doc.name" class="doctor-avatar">
+                </div>
+
+                <div class="doctor-info">
+                    <h3>{{ doc.name }}</h3>
+                    <span class="qualification">{{ doc.qualification }} • {{ doc.specialty }}</span>
+                    <span class="experience">{{ doc.experience }}+ Years Experience</span>
+
+                    <div class="expertise-tags">
+                        <span class="tag" *ngFor="let skill of doc.expertise">{{ skill }}</span>
+                    </div>
+
+                    <div class="packages-section" *ngIf="doc.packages.length">
+                        <strong>Recommended Packages</strong>
+                        <div class="package-item" *ngFor="let pkg of doc.packages">
+                            <span>🩺</span> {{ pkg }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-actions">
+                <!-- In a real app, this would open a profile or booking flow -->
+                <a [routerLink]="['/doctor-profile', doc.id]" class="btn btn-outline"
+                    style="text-align: center; text-decoration: none;">View Profile</a>
+                <a [routerLink]="['/book-appointment', doc.id]" class="btn btn-primary"
+                    style="text-align: center; text-decoration: none;">Book Appointment</a>
+            </div>
+        </div>
+    </div>
+</div>

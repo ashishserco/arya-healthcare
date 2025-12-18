@@ -1,73 +1,127 @@
 <div class="landing-page">
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="container nav-content">
-      <div class="brand">Arya<span class="brand-highlight">Health</span></div>
-      <div class="nav-links">
-        <a href="#">Find Care</a>
-        <a href="#">Resources</a>
-        <a href="#">For Providers</a>
-        <a href="#" class="btn btn-outline" style="padding: 0.5rem 1rem;">Log In</a>
-        <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;">Sign Up</a>
-      </div>
-    </div>
-  </nav>
+  <!-- Hero Section (Fortis Style) -->
+  <header class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="animate-up">Excellence in <br><span class="highlight">Healthcare</span></h1>
+        <p class="subtitle animate-up delay-100">World-class medical expertise with a compassionate human touch. Your
+          health is our priority.</p>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <span class="badge">New: AI-Powered Health Triage</span>
-        <h1>Healthcare designed around <span class="gradient-text">you</span>, not the system.</h1>
-        <p class="subtitle">Experience the future of patient care. Instant appointments, personalized guidance, and 24/7 access to your health team.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary">Book Appointment</button>
-          <button class="btn btn-outline">Check Symptoms</button>
-        </div>
-        <div class="trust-indicators">
-          <span>Trusted by 50,000+ patients</span>
-          <div class="avatars">
-            <!-- Placeholders for avatars -->
-            <div class="avatar" style="background: #cbd5e1;"></div>
-            <div class="avatar" style="background: #94a3b8;"></div>
-            <div class="avatar" style="background: #64748b;"></div>
+        <div class="booking-widget animate-up delay-200">
+          <h3>Request an Appointment</h3>
+          <p>Get a callback from our team within 15 minutes.</p>
+          <div class="widget-actions">
+            <button class="btn btn-primary">Book Specialist</button>
+            <button class="btn btn-outline">Health Checkup</button>
+          </div>
+          <div class="emergency-link">
+            or call <strong>1066</strong> for Emergency
           </div>
         </div>
       </div>
-      <div class="hero-image">
-        <!-- Abstract gradient blob or illustration placeholder -->
-        <div class="blob-wrapper">
-          <div class="blob"></div>
+
+      <!-- Doctor Hero Image -->
+      <div class="hero-image-wrapper animate-in-right">
+        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=800&q=80"
+          alt="Arya Healthcare Doctors" class="doctor-hero-img">
+        <div class="trust-badge">
+          <span class="count">50k+</span>
+          <span class="label">Happy Patients</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Features Grid -->
-  <section class="features">
+  <!-- Emergency Stats Strip -->
+  <section class="stats-strip">
+    <div class="container strip-grid">
+      <div class="strip-item">
+        <div class="icon">🚑</div>
+        <div>
+          <h4>Emergency</h4>
+          <span>24/7 Response</span>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="icon">🧪</div>
+        <div>
+          <h4>Laboratory</h4>
+          <span>NABL Accredited</span>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="icon">💊</div>
+        <div>
+          <h4>Pharmacy</h4>
+          <span>Home Delivery</span>
+        </div>
+      </div>
+      <div class="strip-item active">
+        <div class="icon">📅</div>
+        <div>
+          <h4>Book Appointment</h4>
+          <span>Instant Confirmation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet Our Experts -->
+  <section class="section experts-section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header text-center">
+        <h2>Meet Our Specialists</h2>
+        <p>Consult with the country's leading medical experts.</p>
+      </div>
+
+      <div class="experts-grid">
+        <div class="expert-card" *ngFor="let doc of topDoctors">
+          <div class="expert-img">
+            <img [src]="doc.img" [alt]="doc.name">
+          </div>
+          <div class="expert-info">
+            <h3>{{ doc.name }}</h3>
+            <p class="spec">{{ doc.specialty }}</p>
+            <p class="exp">{{ doc.exp }} Experience</p>
+            <a routerLink="/book-appointment/1" class="btn-link">Book Appointment →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <a routerLink="/find-doc" class="btn btn-outline">View All Doctors</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specialties / Access -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header text-center">
         <h2>Complete Care Platform</h2>
         <p>Everything you need to manage your health in one secure place.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
           <div class="icon-box">🏥</div>
-          <h3>Smart Provider Search</h3>
-          <p>Find the right specialist based on your specific condition, insurance, and location.</p>
+          <h3>Centres of Excellence</h3>
+          <p>Specialized care in Cardiac, Neuro, and Orthopedics.</p>
+          <a routerLink="/centres-of-excellence">Explore Centres</a>
         </div>
         <div class="feature-card">
-          <div class="icon-box">🤖</div>
-          <h3>AI Guidance</h3>
-          <p>Not sure where to go? Our AI assistant helps triage your symptoms and directs you to the right care level.</p>
+          <div class="icon-box">🌎</div>
+          <h3>International Patients</h3>
+          <p>World-class facilities for our global guests.</p>
+          <a routerLink="/international-patients">Learn More</a>
         </div>
         <div class="feature-card">
           <div class="icon-box">📚</div>
-          <h3>Health Education</h3>
-          <p>Access verified medical articles and videos tailored to your health profile.</p>
+          <h3>Health Library</h3>
+          <p>Access verified medical articles and videos.</p>
+          <a routerLink="/health-library">Read Articles</a>
         </div>
       </div>
     </div>
   </section>
 </div>
-

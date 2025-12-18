@@ -1,0 +1,54 @@
+<div class="dashboard-layout">
+    <!-- Sidebar (Shared Look) -->
+    <aside class="sidebar">
+        <div class="brand">Arya<span class="brand-highlight">Health</span></div>
+        <nav class="side-nav">
+            <a href="/dashboard">Overview</a>
+            <a href="/dashboard/appointments">Appointments</a>
+            <a href="/dashboard/records" class="active">Health Vault</a>
+            <a href="/dashboard/messages">Messages</a>
+            <a href="/dashboard/settings">Settings</a>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar-circle">JD</div>
+            <div class="user-info">
+                <span class="name">John Doe</span>
+                <span class="id">ID: #83920</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h2>Health Vault</h2>
+            <button class="btn btn-primary">Upload Document +</button>
+        </header>
+
+        <div class="records-grid">
+            <div class="record-card" *ngFor="let record of records">
+                <div class="card-header">
+                    <div class="icon-box"
+                        [ngClass]="{'rx': record.type === 'Prescription', 'lab': record.type === 'Lab Report'}">
+                        {{ record.type === 'Prescription' ? '💊' : (record.type === 'Lab Report' ? '🧪' : '💉') }}
+                    </div>
+                    <div class="meta">
+                        <span class="date">{{ record.date }}</span>
+                        <span class="type">{{ record.type }}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4>{{ record.doctor }}</h4>
+                    <p class="specialty">{{ record.specialty }}</p>
+                    <ul class="items-list">
+                        <li *ngFor="let item of record.items">• {{ item }}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-text">View Details</button>
+                    <button class="btn-icon">⬇</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
