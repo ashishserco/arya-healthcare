@@ -298,4 +298,4 @@ For questions or feedback, please open an issue or contact me directly.
 
 **⭐ If you find this project useful, please consider giving it a star!**
 
-Made with ❤️ by Ashish Sharma
+Made with ❤️ by Ashish Pandey
