@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FHIR code-system URIs and OMOP vocabulary mappings",
+  "description": "Canonical code-system URIs the FullHealth ingestion layer accepts in FHIR resources, mapped to OMOP vocabulary_id values.",
+  "systems": [
+    {
+      "fhir_uri": "http://snomed.info/sct",
+      "omop_vocabulary_id": "SNOMED",
+      "description": "SNOMED CT International edition",
+      "example_code": "38341003",
+      "example_display": "Hypertensive disorder, systemic arterial"
+    },
+    {
+      "fhir_uri": "http://loinc.org",
+      "omop_vocabulary_id": "LOINC",
+      "description": "Logical Observation Identifiers Names and Codes",
+      "example_code": "85354-9",
+      "example_display": "Blood pressure panel"
+    },
+    {
+      "fhir_uri": "http://hl7.org/fhir/sid/icd-10",
+      "omop_vocabulary_id": "ICD10",
+      "description": "WHO ICD-10",
+      "example_code": "I10",
+      "example_display": "Essential (primary) hypertension"
+    },
+    {
+      "fhir_uri": "http://hl7.org/fhir/sid/icd-10-cm",
+      "omop_vocabulary_id": "ICD10CM",
+      "description": "ICD-10 Clinical Modification (US)",
+      "example_code": "I10",
+      "example_display": "Essential (primary) hypertension"
+    },
+    {
+      "fhir_uri": "http://www.nlm.nih.gov/research/umls/rxnorm",
+      "omop_vocabulary_id": "RxNorm",
+      "description": "RxNorm normalized clinical drug nomenclature",
+      "example_code": "197361",
+      "example_display": "Amlodipine 5 MG Oral Tablet"
+    },
+    {
+      "fhir_uri": "http://www.ama-assn.org/go/cpt",
+      "omop_vocabulary_id": "CPT4",
+      "description": "Current Procedural Terminology v4",
+      "example_code": "99213",
+      "example_display": "Office or outpatient visit, established patient"
+    },
+    {
+      "fhir_uri": "http://unitsofmeasure.org",
+      "omop_vocabulary_id": "UCUM",
+      "description": "Unified Code for Units of Measure",
+      "example_code": "mmHg",
+      "example_display": "Millimetre of mercury"
+    }
+  ]
+}
