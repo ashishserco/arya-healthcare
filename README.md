@@ -3,9 +3,22 @@
 [![Live Demo](https://img.shields.io/badge/demo-live-success)](https://arya-healthcare.vercel.app)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> A comprehensive full-stack digital healthcare platform built with Angular and .NET microservices, demonstrating enterprise-grade architecture and modern development practices.
+> A comprehensive full-stack digital healthcare platform built with Angular and .NET microservices, demonstrating enterprise-grade HealthTech architecture, modern healthcare interoperability standards (FHIR R4, HL7 v2, OMOP CDM), and clinical terminologies (SNOMED CT, LOINC, ICD-10, RxNorm).
 
 ![Arya Healthcare](https://via.placeholder.com/1200x400?text=Arya+Healthcare+Platform)
+
+## 🏥 Healthcare Interoperability Standards
+
+This platform implements the four pillars typically evaluated in modern HealthTech engineering:
+
+| Pillar | Implementation | Folder |
+|--------|----------------|--------|
+| **FHIR R4** | RESTful resource APIs for Patient, Observation, Encounter, Condition, MedicationRequest, plus `$everything` operation. Built on the Firely .NET SDK. | [`backend/src/FullHealth.Interop/Fhir/`](backend/src/FullHealth.Interop/Fhir/) |
+| **HL7 v2.5** | NHapi-based pipe parser for ADT (admission), ORU (results), ORM (orders) with MSA ACK responses. Sample messages and HTTP ingest endpoint included. | [`backend/src/FullHealth.Interop/Hl7v2/`](backend/src/FullHealth.Interop/Hl7v2/) |
+| **OMOP CDM v5.4** | Full PostgreSQL DDL for clinical event tables (PERSON, VISIT_OCCURRENCE, CONDITION_OCCURRENCE, DRUG_EXPOSURE, MEASUREMENT) and vocabulary tables (CONCEPT, CONCEPT_RELATIONSHIP, CONCEPT_ANCESTOR), with FHIR → OMOP ETL mapping documentation and reference analytical SQL. | [`omop/`](omop/) |
+| **Clinical terminologies** | SNOMED CT, LOINC, ICD-10-CM, RxNorm, CPT-4 reference catalogues with code-system URIs, FHIR coding patterns, and OMOP `concept_id` resolution rules. | [`terminology/`](terminology/) |
+
+See [`docs/INTEROPERABILITY_STANDARDS.md`](docs/INTEROPERABILITY_STANDARDS.md) for the architecture diagram, endpoint inventory, and standards version matrix.
 
 ## 🌟 Features
 
@@ -30,26 +43,39 @@
 ## 🏗️ Architecture
 
 ```
-┌─────────────┐
-│   Angular   │ ← Frontend (Port 4200)
-│   Frontend  │
-└──────┬──────┘
-       │ HTTP/REST
-       ▼
-┌─────────────────────────────────────┐
-│        Microservices Layer          │
-├──────────┬──────────┬──────────────┤
-│ Provider │ Pharmacy │ Diagnostics  │
-│ Service  │ Service  │  Service     │
-│ (5001)   │ (5002)   │  (5003)      │
-└────┬─────┴────┬─────┴──────┬───────┘
-     │          │            │
-     ▼          ▼            ▼
-┌─────────────────────────────────────┐
-│         Database Layer              │
-│  (In-Memory/SQL Server/PostgreSQL)  │
-└─────────────────────────────────────┘
+                 ┌─────────────────────────────────┐
+                 │      Angular 19 Frontend        │ ← Patient + clinician views (4200)
+                 └────────────────┬────────────────┘
+                                  │ HTTPS / REST / FHIR+JSON
+                                  ▼
+   ┌─────────────────────────────────────────────────────────────┐
+   │                  .NET 8 Microservices                       │
+   ├──────────────┬──────────────┬──────────────┬────────────────┤
+   │  Provider    │  Pharmacy    │ Diagnostics  │   Interop      │
+   │  (5001)      │  (5002)      │  (5003)      │   (5050)       │
+   │              │              │              │  FHIR + HL7v2  │
+   ├──────────────┼──────────────┼──────────────┼────────────────┤
+   │  Patient     │  Appointment │   Auth       │  (more...)     │
+   │  (5004)      │  (5005)      │  (5006)      │                │
+   └──────┬───────┴──────┬───────┴──────┬───────┴────────┬───────┘
+          │              │              │                │
+          ▼              ▼              ▼                ▼
+   ┌─────────────────────────────────────────────────────────────┐
+   │                       Data Layer                            │
+   │  PostgreSQL (OLTP + Bronze/Silver) | OMOP CDM v5.4 (Gold)  │
+   └─────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼
+   ┌─────────────────────────────────────────────────────────────┐
+   │            Analytics: ATLAS / HADES / Superset             │
+   └─────────────────────────────────────────────────────────────┘
 ```
+
+External integrations land via two channels:
+- **HL7 v2 MLLP / HTTP** — legacy hospital EHR systems (Epic, Cerner) push ADT, ORU, ORM messages
+- **FHIR R4 REST** — modern client apps and partner systems exchange Patient, Observation, Encounter, Condition, MedicationRequest
+
+Both streams are normalized into the OMOP Common Data Model for cross-institution analytics.
 
 ## 🚀 Tech Stack
 
@@ -77,31 +103,47 @@
 
 ```
 arya-healthcare/
-├── frontend/                 # Angular application
+├── frontend/                                # Angular 19 application
+│   └── src/app/{core,features,services}/
+├── backend/
 │   ├── src/
-│   │   ├── app/
-│   │   │   ├── core/        # Layout, guards, interceptors
-│   │   │   ├── features/    # Feature modules
-│   │   │   └── services/    # API services
-│   │   └── styles.css       # Global styles
-│   └── package.json
-├── backend/                  # .NET microservices
-│   ├── src/
-│   │   ├── FullHealth.Provider/
-│   │   ├── FullHealth.Pharmacy/
-│   │   ├── FullHealth.Diagnostics/
-│   │   ├── FullHealth.Auth/
-│   │   ├── FullHealth.Patient/
-│   │   └── FullHealth.Appointment/
+│   │   ├── FullHealth.Provider/             # Doctors / specialties
+│   │   ├── FullHealth.Pharmacy/             # Medication catalogue
+│   │   ├── FullHealth.Diagnostics/          # Lab tests / packages
+│   │   ├── FullHealth.Auth/                 # JWT auth
+│   │   ├── FullHealth.Patient/              # Patient records
+│   │   ├── FullHealth.Appointment/          # Booking
+│   │   ├── FullHealth.Core/                 # Shared kernel
+│   │   └── FullHealth.Interop/              # ⭐ FHIR R4 + HL7 v2 interop service
+│   │       ├── Fhir/Controllers/            #    PatientController, ObservationController,
+│   │       │                                #    EncounterController, ConditionController,
+│   │       │                                #    MedicationRequestController
+│   │       ├── Fhir/FhirSampleData.cs       #    Firely SDK resource builders
+│   │       ├── Hl7v2/Hl7MessageParser.cs    #    NHapi ADT/ORU parsers, ACK builder
+│   │       ├── Hl7v2/Controllers/           #    /hl7v2/adt, /hl7v2/oru endpoints
+│   │       └── Hl7v2/Samples/*.hl7          #    Sample ADT^A01, ORU^R01, ORM^O01
+│   ├── tests/
+│   │   └── FullHealth.Interop.Tests/        # xUnit + FluentAssertions test suite
 │   └── FullHealth.sln
-├── infra/                    # Terraform configs
-│   ├── main.tf
-│   ├── variables.tf
-│   └── outputs.tf
-├── docs/                     # Documentation
+├── omop/                                    # ⭐ OMOP Common Data Model v5.4
+│   ├── schema/                              #    Core + vocabulary DDL (PostgreSQL)
+│   ├── seed/sample_concepts.sql             #    Cross-vocabulary seed data
+│   ├── queries/common_analytics.sql         #    Reference cohort / outcomes SQL
+│   ├── etl/fhir_to_omop_mapping.md          #    FHIR R4 → OMOP per-resource mapping
+│   └── README.md
+├── terminology/                             # ⭐ Clinical vocabulary references
+│   ├── snomed_examples.md
+│   ├── loinc_examples.md
+│   ├── icd10_examples.md
+│   ├── rxnorm_examples.md
+│   ├── code_systems.json                    #    FHIR system URI → OMOP vocabulary_id
+│   └── README.md
+├── infra/                                   # Terraform (AKS, ACR, network)
+├── docs/
+│   ├── INTEROPERABILITY_STANDARDS.md        # ⭐ Standards architecture + endpoint inventory
 │   ├── SYSTEM_ARCHITECTURE.md
-│   ├── API_DOCUMENTATION.md
-│   └── FEATURE_SYNC_MAP.md
+│   ├── FEATURE_SYNC_MAP.md
+│   └── 12_functional_gap_analysis/
 └── README.md
 ```
 
@@ -194,7 +236,44 @@ curl http://localhost:5003/api/labpackages
 curl http://localhost:5003/api/labtests
 ```
 
-For complete API documentation, see [API_DOCUMENTATION.md](backend/API_DOCUMENTATION.md)
+For complete API documentation, see [API_DOCUMENTATION.md](backend/API_DOCUMENTATION.md).
+
+### FHIR R4 Interop Endpoints (FullHealth.Interop, port 5050)
+
+```bash
+# Read a Patient
+curl http://localhost:5050/fhir/Patient/MRN12345 \
+     -H "Accept: application/fhir+json"
+
+# Patient $everything operation - all related resources
+curl http://localhost:5050/fhir/Patient/MRN12345/\$everything \
+     -H "Accept: application/fhir+json"
+
+# Observation search by patient + LOINC code (Blood pressure panel)
+curl "http://localhost:5050/fhir/Observation?patient=MRN12345&code=http://loinc.org|85354-9"
+
+# Condition search (returns SNOMED + ICD-10 dual-coded resources)
+curl "http://localhost:5050/fhir/Condition?patient=MRN12345"
+
+# MedicationRequest (RxNorm-coded medications)
+curl "http://localhost:5050/fhir/MedicationRequest?patient=MRN12345"
+```
+
+### HL7 v2 Ingest Endpoints
+
+```bash
+# POST an ADT^A01 (admit patient) message - returns MSA ACK
+curl -X POST http://localhost:5050/hl7v2/adt \
+     -H "Content-Type: text/plain" \
+     --data-binary @backend/src/FullHealth.Interop/Hl7v2/Samples/sample_adt_a01.hl7
+
+# POST an ORU^R01 (observation result) message
+curl -X POST http://localhost:5050/hl7v2/oru \
+     -H "Content-Type: text/plain" \
+     --data-binary @backend/src/FullHealth.Interop/Hl7v2/Samples/sample_oru_r01.hl7
+```
+
+See [`docs/INTEROPERABILITY_STANDARDS.md`](docs/INTEROPERABILITY_STANDARDS.md) for the full endpoint inventory and protocol notes.
 
 ## 🎨 Screenshots
 
@@ -256,13 +335,22 @@ kubectl apply -f k8s/
 
 ## 🗺️ Roadmap
 
+- [x] FHIR R4 Patient / Observation / Encounter / Condition / MedicationRequest resources
+- [x] HL7 v2 ADT / ORU / ORM parser with ACK
+- [x] OMOP CDM v5.4 schema + FHIR-to-OMOP ETL mapping
+- [x] SNOMED / LOINC / ICD-10 / RxNorm code-system handling
+- [ ] HL7 v2 MLLP TCP listener (currently HTTP-only)
+- [ ] FHIR Bulk Data Access ($export) for population-level export
+- [ ] SMART-on-FHIR OAuth 2.0 launch flow
+- [ ] FHIR Subscriptions (R4) for real-time event push
+- [ ] Full OHDSI Athena vocabulary load
+- [ ] ACHILLES data-quality dashboard
+- [ ] CONDITION_ERA and DRUG_ERA derivation jobs
 - [ ] Real-time notifications (SignalR)
-- [ ] Payment gateway integration
-- [ ] Mobile app (React Native)
 - [ ] Telemedicine video calls
+- [ ] Mobile app (React Native)
 - [ ] AI-powered symptom checker
 - [ ] Multi-language support
-- [ ] FHIR compliance
 
 ## 🤝 Contributing
 
