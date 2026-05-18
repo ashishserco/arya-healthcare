@@ -1,0 +1,44 @@
+@Interop_HostAddress = http://localhost:5050
+
+### FHIR Patient read
+GET {{Interop_HostAddress}}/fhir/Patient/MRN12345
+Accept: application/fhir+json
+
+### FHIR Patient search by family name
+GET {{Interop_HostAddress}}/fhir/Patient?family=Doe
+Accept: application/fhir+json
+
+### FHIR Patient $everything (all related resources)
+GET {{Interop_HostAddress}}/fhir/Patient/MRN12345/$everything
+Accept: application/fhir+json
+
+### FHIR Observation by patient + LOINC code
+GET {{Interop_HostAddress}}/fhir/Observation?patient=MRN12345&code=http://loinc.org|85354-9
+Accept: application/fhir+json
+
+### FHIR Condition search
+GET {{Interop_HostAddress}}/fhir/Condition?patient=MRN12345
+Accept: application/fhir+json
+
+### FHIR MedicationRequest search
+GET {{Interop_HostAddress}}/fhir/MedicationRequest?patient=MRN12345
+Accept: application/fhir+json
+
+### HL7 v2 ADT^A01 ingest
+POST {{Interop_HostAddress}}/hl7v2/adt
+Content-Type: text/plain
+
+MSH|^~\&|EPIC|HOSP1|FULLHEALTH|FULLHEALTH|20240115103000||ADT^A01|MSG00001|P|2.5
+EVN|A01|20240115103000
+PID|1||MRN12345^^^HOSP^MR||DOE^JOHN^A||19700101|M
+PV1|1|I|ICU^101^1
+
+### HL7 v2 ORU^R01 lab result ingest
+POST {{Interop_HostAddress}}/hl7v2/oru
+Content-Type: text/plain
+
+MSH|^~\&|LAB|HOSP1|FULLHEALTH|FULLHEALTH|20240115110500||ORU^R01|MSG00002|P|2.5
+PID|1||MRN12345^^^HOSP^MR||DOE^JOHN^A||19700101|M
+OBR|1|ORD001|RES001|85354-9^Blood pressure panel^LN|||20240115110000
+OBX|1|NM|8480-6^Systolic blood pressure^LN||120|mmHg|90-140|N|||F
+OBX|2|NM|8462-4^Diastolic blood pressure^LN||80|mmHg|60-90|N|||F
